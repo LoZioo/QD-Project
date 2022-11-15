@@ -12,3 +12,9 @@
 -	Minimizzazione ASFD.
 -	Equivalenza tra due automi.
 -	Generare da ASFD -> RegExp e viceversa (rivedere teoria).
+
+## Ruoli
+-	Davide:		Algoritmo.
+-	Lucia:		Interfaccia.
+-	Nikita:		Parsing XML.
+-	Federica:	Normalizzazione ASF in ASFD.
