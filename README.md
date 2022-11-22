@@ -1,7 +1,6 @@
 # QD-Project
 Repository progetto per materia Quality Developement.
 
-## Table of Contents
 - [Introduzione](#introduzione)
 - [Cenni di teoria](#cenni-di-teoria)
   * [Definizione di ASFD](#definizione-di-asfd)
@@ -10,6 +9,7 @@ Repository progetto per materia Quality Developement.
   * [Stringa accettata da un ASFD](#stringa-accettata-da-un-asfd)
   * [Computazione di una stringa da parte di un ASFD](#computazione-di-una-stringa-da-parte-di-un-asfd)
   * [Osservazioni sulla funzione di transizione](#osservazioni-sulla-funzione-di-transizione)
+- [Utilizzo e test del codice](#utilizzo-e-test-del-codice)
 - [Risorse aggiuntive](#risorse-aggiuntive)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
@@ -69,10 +69,10 @@ Alternativamente, per ogni coppia di stato e carattere di transizione, deve semp
 
 La funzione $\delta$ è quindi sempre definita su tutto il suo dominio.
 
-## Risorse aggiuntive
--	[TOC generator](http://ecotrust-canada.github.io/markdown-toc/)
--	[Graph Online](https://graphonline.ru/en/)
-
 ## Utilizzo e test del codice
 Il codice può essere testato in locale tramite lo script [test.sh](test.sh).  
 Questo script provvede ad eseguire quasi gli stessi comandi di test previsti nella pipeline di GitHub, eseguilo quindi sempre prima di eseguire il push del tuo codice nella repository (`git push`): in questo modo non romperai la pipeline!
+
+## Risorse aggiuntive
+-	[TOC generator](http://ecotrust-canada.github.io/markdown-toc/)
+-	[Graph Online](https://graphonline.ru/en/)
