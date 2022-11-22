@@ -11,11 +11,13 @@ green="\033[0;32m"
 # Clear the color after that.
 clear="\033[0m"
 
-# pylint sintax check.
-pylint src
-
 # pytest unit tests check.
+printf "pytest:\n"
 pytest --cov src tests/ --cov-report=html --cov-fail-under=75
 
+# pylint sintax check.
+printf "\npylint:"
+pylint src
+
 # Success message.
-printf "${green}\nSuccess${clear}, you can go ahead and push your code!\n"
+printf "${green}Success${clear}, you can go ahead and push your code!\n"
