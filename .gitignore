@@ -1,3 +1,9 @@
+# From qd-starter-pack
+**/__pycache__
+**/*.pyc
+**/.DS_Store
+.coverage
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
