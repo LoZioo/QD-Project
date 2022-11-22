@@ -72,3 +72,7 @@ La funzione $\delta$ è quindi sempre definita su tutto il suo dominio.
 ## Risorse aggiuntive
 -	[TOC generator](http://ecotrust-canada.github.io/markdown-toc/)
 -	[Graph Online](https://graphonline.ru/en/)
+
+## Utilizzo e test del codice
+Il codice può essere testato in locale tramite lo script [test.sh](test.sh).  
+Questo script provvede ad eseguire quasi gli stessi comandi di test previsti nella pipeline di GitHub, eseguilo quindi sempre prima di eseguire il push del tuo codice nella repository (`git push`): in questo modo non romperai la pipeline!
