@@ -1,19 +1,22 @@
-from typing import NewType, Literal
+from typing import NewType, Union
+from src.queue import Queue
 
-# Direct graph adjacency matrix type.
-DirectGraphAdjacencyMatrix = NewType("GraphAdjacencyMatrix", list[list[Literal[0, 1]]])
+# Types |------------------------------------------------------------
 
-# Graph class.
-# class DirectGraph:
-	# __adj_matrix:		DirectGraphAdjacencyMatrix
-	# __entry_vertex:	int
+# Node label.
+DirectGraphNode = str
+DirectGraphAdjacencyMatrix = NewType("GraphAdjacencyMatrix", list[list[DirectGraphNode]])
 
-	# def __init__(self, adj_matrix: DirectGraphAdjacencyMatrix, entry_vertex: int = 0) -> None:
-	# 	assert len(adj_matrix) > 0
-	# 	assert len(adj_matrix) == len(adj_matrix[0])
-	# 	assert entry_vertex >= 0 and entry_vertex < len(adj_matrix) - 1
+# Classes |----------------------------------------------------------
 
-	# 	self.__adj_matrix = adj_matrix
-	# 	self.__entry_vertex = entry_vertex
+class DirectGraph:
+	__adj_matrix:	DirectGraphAdjacencyMatrix
 
-	# def bfs(self, entry_vertex: int = 0) -> None:
+	def __init__(self, adj_matrix: DirectGraphAdjacencyMatrix) -> None:
+		assert len(adj_matrix) > 0
+		assert len(adj_matrix) == len(adj_matrix[0])
+
+		self.__adj_matrix = adj_matrix
+
+	def bfs(self, entry_vertex: DirectGraphNode) -> list[DirectGraphNode]:
+		q = Queue[DirectGraphNode]()
