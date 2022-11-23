@@ -6,6 +6,6 @@ T = TypeVar("T")
 class Queue(list[T]):
 	def enque(self, object: T) -> None:
 		super().append(object)
-	
+
 	def deque(self) -> T:
 		return super().pop(0)
