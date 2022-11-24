@@ -13,7 +13,7 @@ clear="\033[0m"
 
 # pytest unit tests check.
 printf "pytest:\n"
-pytest --cov src tests/ --cov-report=html --cov-fail-under=75
+pytest --cov src tests --cov-report=html --cov-fail-under=75
 
 # pylint sintax check.
 printf "\npylint:"
@@ -21,3 +21,5 @@ pylint src
 
 # Success message.
 printf "${green}Success${clear}, you can go ahead and push your code!\n"
+
+# NB: add -s to an external pytest call to print the stdout of the called file.
