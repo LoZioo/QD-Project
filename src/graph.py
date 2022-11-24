@@ -18,5 +18,36 @@ class DirectGraph:
 
 		self.__adj_matrix = adj_matrix
 
-	def bfs(self, entry_vertex: DirectGraphNode) -> list[DirectGraphNode]:
-		q = Queue[DirectGraphNode]()
+	# def bfs(self, entry_vertex: DirectGraphNode) -> list[DirectGraphNode]:
+		# q = Queue[DirectGraphNode]()
+	
+	def getMatrix(self) -> DirectGraphAdjacencyMatrix:
+		return self.__adj_matrix
+
+
+# Temp code |--------------------------------------------------------
+
+m1 = [
+	[0, 1, 0, 0, 0, 0],
+	[0, 0, 1, 0, 0, 1],
+	[0, 0, 0, 1, 0, 0],
+	[1, 0, 0, 0, 0, 0],
+	[1, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0],
+]
+
+n = len(m1)
+
+print("len: %d" % n)
+
+m: DirectGraphAdjacencyMatrix = DirectGraphAdjacencyMatrix()
+
+for i in range(n):
+	m.append([])
+	
+	for j in range(n):
+		# m[i][j] = str(m1[i][j])
+		# print("i: %d, j: %d" % (i, j))
+		m[i][j] = DirectGraphNode(m1[i][j])
+
+# print(m)
