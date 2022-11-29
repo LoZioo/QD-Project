@@ -1,53 +1,65 @@
-from typing import NewType, Union
+import numpy as np
+import numpy.typing as npt
+
 from src.queue import Queue
-
-# Types |------------------------------------------------------------
-
-# Node label.
-DirectGraphNode = str
-DirectGraphAdjacencyMatrix = NewType("GraphAdjacencyMatrix", list[list[DirectGraphNode]])
 
 # Classes |----------------------------------------------------------
 
 class DirectGraph:
-	__adj_matrix:	DirectGraphAdjacencyMatrix
+	__adj_matrix:		npt.NDArray[np.uint8]
+	__label_matrix:	npt.NDArray[np.string_]
 
-	def __init__(self, adj_matrix: DirectGraphAdjacencyMatrix) -> None:
+	def __init__(self, adj_matrix: npt.NDArray[np.uint8], label_matrix: npt.NDArray[np.string_]) -> None:
+		# ---| adj_matrix |---
 		assert len(adj_matrix) > 0
-		assert len(adj_matrix) == len(adj_matrix[0])
 
-		self.__adj_matrix = adj_matrix
+		# Must be a square matrix.
+		assert len(adj_matr.shape) == 2
+		assert adj_matr.shape[0] == adj_matr.shape[1]
 
-	# def bfs(self, entry_vertex: DirectGraphNode) -> list[DirectGraphNode]:
-		# q = Queue[DirectGraphNode]()
+		# ---| label_matrix |---
+		assert len(label_matrix) == len(adj_matr)
+
+		
+		self.__adj_matrix = adj_matrix.copy()
+		self.__label_matrix = label_matrix.copy()
+
+	def bfs(self, entry_vertex: str) -> npt.NDArray[np.string_]:
+		# ---| IndexError |---
+		entry_vertex_index = np.where(self.__label_matrix == entry_vertex)[0]
+		
+		assert len(entry_vertex_index) == 1
+		entry_vertex_index = entry_vertex_index[0]
+		
+		# print("-----")
+		# print(entry_vertex_index)
+		# print("-----")
+
+		# SCRIVERE CODICE
+
+		# ---| Code |---
+		q = Queue[str]()
+
+		return np.array(q)
 	
-	def getMatrix(self) -> DirectGraphAdjacencyMatrix:
-		return self.__adj_matrix
+	def get(self) -> tuple[npt.NDArray[np.uint8], npt.NDArray[np.string_]]:
+		return (self.__adj_matrix.view(), self.__label_matrix.view())
 
 
 # Temp code |--------------------------------------------------------
 
-m1 = [
+print("\n")
+
+adj_matr = np.array([
 	[0, 1, 0, 0, 0, 0],
 	[0, 0, 1, 0, 0, 1],
 	[0, 0, 0, 1, 0, 0],
 	[1, 0, 0, 0, 0, 0],
 	[1, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0],
-]
+])
 
-n = len(m1)
+label_matrix = np.array(["1", "2", "3", "4", "5", "6"])
 
-print("len: %d" % n)
-
-m: DirectGraphAdjacencyMatrix = DirectGraphAdjacencyMatrix()
-
-for i in range(n):
-	m.append([])
-	
-	for j in range(n):
-		# m[i][j] = str(m1[i][j])
-		# print("i: %d, j: %d" % (i, j))
-		m[i][j] = DirectGraphNode(m1[i][j])
-
-# print(m)
+g = DirectGraph(adj_matr, label_matrix)
+g.bfs("1")
