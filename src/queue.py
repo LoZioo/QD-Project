@@ -9,3 +9,6 @@ class Queue(list[T]):
 
 	def deque(self) -> Union[T, None]:
 		return super().pop(0) if len(self) > 0 else None
+	
+	def isEmpty(self) -> bool:
+		return len(self) == 0

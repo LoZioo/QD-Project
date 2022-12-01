@@ -9,3 +9,6 @@ class Stack(list[T]):
 	
 	def pop(self) -> Union[T, None]:
 		return super().pop() if len(self) > 0 else None
+	
+	def isEmpty(self) -> bool:
+		return len(self) == 0
