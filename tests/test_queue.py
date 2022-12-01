@@ -13,5 +13,6 @@ def test_Queue() -> None:
 	
 	for i in range(ATTEMPTS):
 		assert i == q.deque()
-	
+
+	assert q.deque() == None
 	assert len(q) == 0

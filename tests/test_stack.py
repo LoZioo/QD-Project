@@ -14,4 +14,5 @@ def test_Stack() -> None:
 	for i in range(ATTEMPTS):
 		assert ATTEMPTS - i - 1 == s.pop()
 	
+	assert s.pop() == None
 	assert len(s) == 0
