@@ -6,6 +6,7 @@ import numpy.typing as npt
 from src.queue import Queue
 
 # Classes |----------------------------------------------------------
+
 class DirectGraph:
 	__adj_matr:	npt.NDArray[np.uint8]
 	__label_arr:	npt.NDArray[np.string_]
