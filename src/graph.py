@@ -1,65 +1,68 @@
+from typing import Union
+
 import numpy as np
 import numpy.typing as npt
 
 from src.queue import Queue
 
 # Classes |----------------------------------------------------------
-
 class DirectGraph:
-	__adj_matrix:		npt.NDArray[np.uint8]
-	__label_matrix:	npt.NDArray[np.string_]
+	__adj_matr:	npt.NDArray[np.uint8]
+	__label_arr:	npt.NDArray[np.string_]
 
-	def __init__(self, adj_matrix: npt.NDArray[np.uint8], label_matrix: npt.NDArray[np.string_]) -> None:
-		# ---| adj_matrix |---
-		assert len(adj_matrix) > 0
+	def __label_to_index(self, label: str) -> Union[int, None]:
+		# ---| IndexError |---
+		vertex_search_results = np.where(self.__label_arr == label)[0]
+
+		# One and only one vertex must be found.
+		if len(vertex_search_results) == 1:
+			return vertex_search_results[0]
+
+		return None
+
+	def __init__(self, adj_matr: npt.NDArray[np.uint8], label_arr: npt.NDArray[np.string_]) -> None:
+		# ---| adj_matr |---
+		assert len(adj_matr) > 0
 
 		# Must be a square matrix.
 		assert len(adj_matr.shape) == 2
 		assert adj_matr.shape[0] == adj_matr.shape[1]
 
-		# ---| label_matrix |---
-		assert len(label_matrix) == len(adj_matr)
+		# ---| label_arr |---
+		assert len(label_arr) == len(adj_matr)
 
-		
-		self.__adj_matrix = adj_matrix.copy()
-		self.__label_matrix = label_matrix.copy()
+		self.__adj_matr = adj_matr.copy()
+		self.__label_arr = label_arr.copy()
 
-	def bfs(self, entry_vertex: str) -> npt.NDArray[np.string_]:
-		# ---| IndexError |---
-		entry_vertex_index = np.where(self.__label_matrix == entry_vertex)[0]
-		
-		assert len(entry_vertex_index) == 1
-		entry_vertex_index = entry_vertex_index[0]
-		
-		# print("-----")
-		# print(entry_vertex_index)
-		# print("-----")
-
-		# SCRIVERE CODICE
+	def bfs(self, entry_vertex_label: str) -> list[str]:
+		# ---| __label_to_index error |---
+		entry_vertex_index = self.__label_to_index(entry_vertex_label)
+		assert entry_vertex_index is not None
 
 		# ---| Code |---
-		q = Queue[str]()
+		n = len(self.__adj_matr)
 
-		return np.array(q)
-	
+		q = Queue[int]()
+		visited = np.full(n, False)
+		res = list[str]()
+
+		q.enque(entry_vertex_index)
+		visited[entry_vertex_index] = True
+
+		while not q.isEmpty():
+			v_index = q.deque()
+			visited[v_index] = True
+
+			# Append current node to the results list.
+			res.append(str(self.__label_arr[v_index]))
+
+			# For iteration with x item and i index.
+			for i, x in enumerate(self.__adj_matr[v_index]):
+				# if x is an unvisited neighbour:
+				if x == 1 and not visited[i]:
+					q.enque(i)
+
+		return res
+
 	def get(self) -> tuple[npt.NDArray[np.uint8], npt.NDArray[np.string_]]:
-		return (self.__adj_matrix.view(), self.__label_matrix.view())
-
-
-# Temp code |--------------------------------------------------------
-
-print("\n")
-
-adj_matr = np.array([
-	[0, 1, 0, 0, 0, 0],
-	[0, 0, 1, 0, 0, 1],
-	[0, 0, 0, 1, 0, 0],
-	[1, 0, 0, 0, 0, 0],
-	[1, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0],
-])
-
-label_matrix = np.array(["1", "2", "3", "4", "5", "6"])
-
-g = DirectGraph(adj_matr, label_matrix)
-g.bfs("1")
+		return (self.__adj_matr.view(), self.__label_arr.view())

@@ -1,3 +1,29 @@
-# from src.graph import DirectGraph
+from src.graph import DirectGraph
+import numpy as np
 
-# def test_graph() -> None:
+def test_DirectGraph() -> None:
+	# Refers to docs/DirectGraph_example.graphml in https://graphonline.ru/en/
+	adj_matr = np.array([
+		[0, 1, 0, 0, 0, 0],
+		[0, 0, 1, 0, 0, 1],
+		[0, 0, 0, 1, 0, 0],
+		[1, 0, 0, 0, 0, 0],
+		[1, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0],
+	])
+
+	label_arr = np.array(["A", "B", "C", "D", "E", "F"])
+	g = DirectGraph(adj_matr, label_arr)
+
+	# ---| DirectGraph.get |---
+	traits = g.get()
+
+	assert np.array_equal(traits[0], adj_matr)
+	assert np.array_equal(traits[1], label_arr)
+
+	# ---| DirectGraph.bfs |---
+	assert g.bfs("A") == ["A", "B", "C", "F", "D"]
+	assert g.bfs("B") == ["B", "C", "F", "D", "A"]
+	assert g.bfs("C") == ["C", "D", "A", "B", "F"]
+	assert g.bfs("D") == ["D", "A", "B", "C", "F"]
+	assert g.bfs("E") == ["E", "A", "B", "C", "F", "D"]
