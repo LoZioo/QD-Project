@@ -21,9 +21,16 @@ def test_DirectGraph() -> None:
 
 	assert g.label_to_index("G") == None
 
-	# ---| DirectGraph.bfs |---
+	# ---| bfs |---
 	assert g.bfs("A") == ["A", "B", "C", "F", "D"]
 	assert g.bfs("B") == ["B", "C", "F", "D", "A"]
 	assert g.bfs("C") == ["C", "D", "A", "B", "F"]
 	assert g.bfs("D") == ["D", "A", "B", "C", "F"]
 	assert g.bfs("E") == ["E", "A", "B", "C", "F", "D"]
+
+	# ---| dfs |---
+	assert g.dfs("A") == ["A", "B", "C", "D", "F"]
+	assert g.dfs("B") == ["B", "C", "D", "A", "F"]
+	assert g.dfs("C") == ["C", "D", "A", "B", "F"]
+	assert g.dfs("D") == ["D", "A", "B", "C", "F"]
+	assert g.dfs("E") == ["E", "A", "B", "C", "D", "F"]

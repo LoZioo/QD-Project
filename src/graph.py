@@ -4,6 +4,7 @@ import numpy as np
 import numpy.typing as npt
 
 from src.queue import Queue
+from src.stack import Stack
 
 # Classes |----------------------------------------------------------
 
@@ -49,19 +50,52 @@ class DirectGraph:
 		res = list[str]()
 
 		q.enque(entry_vertex_index)
-		visited[entry_vertex_index] = True
-
-		while not q.isEmpty():
-			v_index = q.deque()
-			visited[v_index] = True
+		while not q.empty():
+			v = q.deque()
+			visited[v] = True
 
 			# Append current node to the results list.
-			res.append(str(self.label_arr[v_index]))
+			res.append(str(self.label_arr[v]))
 
-			# For iteration with x item and i index.
-			for i, x in enumerate(self.adj_matr[v_index]):
-				# if x is an unvisited neighbour:
-				if x == 1 and not visited[i]:
+			# For iteration with w item and i index.
+			for i, w in enumerate(self.adj_matr[v]):
+				# if w is an unvisited neighbour:
+				if w == 1 and not visited[i]:
 					q.enque(i)
+
+		return res
+
+	def dfs(self, entry_vertex_label: str) -> list[str]:
+		# ---| label_to_index error handling |---
+		entry_vertex_index = self.label_to_index(entry_vertex_label)
+		assert entry_vertex_index is not None
+
+		# ---| Code |---
+		n = len(self.adj_matr)
+
+		s = Stack[int]()
+		visited = np.full(n, False)
+		res = list[str]()
+
+		s.push(entry_vertex_index)
+		while not s.empty():
+			v = s.pop()
+
+			if not visited[v]:
+				visited[v] = True
+
+				# Append current node to the results list.
+				res.append(str(self.label_arr[v]))
+
+			# Array must be evaluated from the end!
+			neighbours = np.flip(self.adj_matr[v])
+
+			# For iteration with w item and i index.
+			for j, w in enumerate(neighbours):
+				i = n - j - 1
+
+				# if w is an unvisited neighbour:
+				if w == 1 and not visited[i]:
+					s.push(i)
 
 		return res
