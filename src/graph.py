@@ -49,7 +49,7 @@ class DirectGraph:
 
 	def setEdge(self, source_label: str, destination_label: str) -> None:
 		self.__setEdge(source_label, destination_label, True)
-	
+
 	def clearEdge(self, source_label: str, destination_label: str) -> None:
 		self.__setEdge(source_label, destination_label, False)
 

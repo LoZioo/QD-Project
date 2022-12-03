@@ -21,6 +21,12 @@ def test_DirectGraph() -> None:
 
 	assert g.label_to_index("G") == None
 
+	# ---| setEdge |---
+	g.setEdge("B", "A")
+
+	# ---| clearEdge |---
+	g.clearEdge("B", "A")
+
 	# ---| bfs |---
 	assert g.bfs("A") == ["A", "B", "C", "F", "D"]
 	assert g.bfs("B") == ["B", "C", "F", "D", "A"]
