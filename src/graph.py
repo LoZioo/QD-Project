@@ -22,6 +22,16 @@ class DirectGraph:
 
 		return None
 
+	def __setEdge(self, source_label: str, destination_label: str, value: bool) -> None:
+		# ---| label_to_index error handling |---
+		u = self.label_to_index(source_label)
+		v = self.label_to_index(destination_label)
+
+		assert u is not None and v is not None
+
+		# ---| Code |---
+		self.adj_matr[u][v] = 1 if value else 0
+
 	# ---| Logical public attributes and methods |---
 	def __init__(self, adj_matr: npt.NDArray[np.uint8], label_arr: npt.NDArray[np.string_]) -> None:
 		# ---| adj_matr |---
@@ -37,6 +47,12 @@ class DirectGraph:
 		self.adj_matr = adj_matr.copy()
 		self.label_arr = label_arr.copy()
 
+	def setEdge(self, source_label: str, destination_label: str) -> None:
+		self.__setEdge(source_label, destination_label, True)
+	
+	def clearEdge(self, source_label: str, destination_label: str) -> None:
+		self.__setEdge(source_label, destination_label, False)
+
 	def bfs(self, entry_vertex_label: str) -> list[str]:
 		# ---| label_to_index error handling |---
 		entry_vertex_index = self.label_to_index(entry_vertex_label)
@@ -50,9 +66,10 @@ class DirectGraph:
 		res = list[str]()
 
 		q.enque(entry_vertex_index)
+		visited[entry_vertex_index] = True
+
 		while not q.empty():
 			v = q.deque()
-			visited[v] = True
 
 			# Append current node to the results list.
 			res.append(str(self.label_arr[v]))
@@ -62,6 +79,7 @@ class DirectGraph:
 				# if w is an unvisited neighbour:
 				if w == 1 and not visited[i]:
 					q.enque(i)
+					visited[i] = True
 
 		return res
 
