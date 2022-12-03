@@ -5,16 +5,16 @@ ATTEMPTS = 3
 def test_Queue() -> None:
 	q = Queue[int]()
 
-	# ---| isEmpty and len |---
-	assert q.isEmpty()
+	# ---| empty and len |---
+	assert q.empty()
 	assert len(q) == 0
 
 	# ---| enque |---
 	for i in range(ATTEMPTS):
 		q.enque(i)
 
-	# ---| isEmpty and len |---
-	assert not q.isEmpty()
+	# ---| empty and len |---
+	assert not q.empty()
 	assert len(q) == ATTEMPTS
 
 	# ---| content check |---
@@ -28,6 +28,6 @@ def test_Queue() -> None:
 	# ---| empty deque |---
 	assert q.deque() == None
 
-	# ---| isEmpty and len |---
-	assert q.isEmpty()
+	# ---| empty and len |---
+	assert q.empty()
 	assert len(q) == 0
