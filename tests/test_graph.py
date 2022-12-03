@@ -15,11 +15,11 @@ def test_DirectGraph() -> None:
 	label_arr = np.array(["A", "B", "C", "D", "E", "F"])
 	g = DirectGraph(adj_matr, label_arr)
 
-	# ---| DirectGraph.get |---
-	traits = g.get()
+	# ---| label_to_index |---
+	for i, label in enumerate(label_arr):
+		assert g.label_to_index(label) == i
 
-	assert np.array_equal(traits[0], adj_matr)
-	assert np.array_equal(traits[1], label_arr)
+	assert g.label_to_index("G") == None
 
 	# ---| DirectGraph.bfs |---
 	assert g.bfs("A") == ["A", "B", "C", "F", "D"]
