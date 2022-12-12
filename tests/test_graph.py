@@ -1,22 +1,25 @@
-from src.graph import DirectGraph
+from src.graph import DirectGraph, DirectGraph_init_t
 import numpy as np
 
 def test_DirectGraph() -> None:
 	# Refers to docs/DirectGraph_example.graphml in https://graphonline.ru/en/
-	adj_matr = np.array([
-		[0, 1, 0, 0, 0, 0],
-		[0, 0, 1, 0, 0, 1],
-		[0, 0, 0, 1, 0, 0],
-		[1, 0, 0, 0, 0, 0],
-		[1, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0],
-	])
+	init = DirectGraph_init_t(
+		adj_matr = np.array([
+			[0, 1, 0, 0, 0, 0],
+			[0, 0, 1, 0, 0, 1],
+			[0, 0, 0, 1, 0, 0],
+			[1, 0, 0, 0, 0, 0],
+			[1, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0],
+		]),
 
-	label_arr = np.array(["A", "B", "C", "D", "E", "F"])
-	g = DirectGraph(adj_matr, label_arr)
+		label_arr = np.array(["A", "B", "C", "D", "E", "F"])
+	)
+
+	g = DirectGraph(init)
 
 	# ---| label_to_index |---
-	for i, label in enumerate(label_arr):
+	for i, label in enumerate(init.label_arr):
 		assert g.label_to_index(label) == i
 
 	assert g.label_to_index("G") == None

@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, NamedTuple
 
 import numpy as np
 import numpy.typing as npt
@@ -6,7 +6,9 @@ import numpy.typing as npt
 from src.queue import Queue
 from src.stack import Stack
 
-# Classes |----------------------------------------------------------
+class DirectGraph_init_t(NamedTuple):
+	adj_matr:		npt.NDArray[np.uint8]
+	label_arr:	npt.NDArray[np.string_]
 
 class DirectGraph:
 	# ---| Logical private attributes and methods |---
@@ -33,19 +35,19 @@ class DirectGraph:
 		self.adj_matr[u][v] = 1 if value else 0
 
 	# ---| Logical public attributes and methods |---
-	def __init__(self, adj_matr: npt.NDArray[np.uint8], label_arr: npt.NDArray[np.string_]) -> None:
+	def __init__(self, init: DirectGraph_init_t) -> None:
 		# ---| adj_matr |---
-		assert len(adj_matr) > 0
+		assert len(init.adj_matr) > 0
 
 		# Must be a square matrix.
-		assert len(adj_matr.shape) == 2
-		assert adj_matr.shape[0] == adj_matr.shape[1]
+		assert len(init.adj_matr.shape) == 2
+		assert init.adj_matr.shape[0] == init.adj_matr.shape[1]
 
 		# ---| label_arr |---
-		assert len(label_arr) == len(adj_matr)
+		assert len(init.label_arr) == len(init.adj_matr)
 
-		self.adj_matr = adj_matr.copy()
-		self.label_arr = label_arr.copy()
+		self.adj_matr = init.adj_matr.copy()
+		self.label_arr = init.label_arr.copy()
 
 	def setEdge(self, source_label: str, destination_label: str) -> None:
 		self.__setEdge(source_label, destination_label, True)
