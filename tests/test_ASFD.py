@@ -1,9 +1,9 @@
 from src.graph import DirectGraph_init_t
-from src.ASF import ASF, ASF_init_t
+from src.ASFD import ASFD, ASFD_init_t
 
 import numpy as np
 
-def test_ASF() -> None:
+def test_ASFD() -> None:
 	DirectGraph_init = DirectGraph_init_t(
 		adj_matr = np.array([
 			[0, 1, 0, 1],
@@ -15,7 +15,7 @@ def test_ASF() -> None:
 		label_arr = np.array(["q1", "q2", "q3", "q4"])
 	)
 
-	ASF_init = ASF_init_t(
+	ASFD_init = ASFD_init_t(
 		sigma = "ab",
 
 		delta = np.array([
@@ -30,6 +30,9 @@ def test_ASF() -> None:
 		final_states = {"q3"}
 	)
 
-	asf = ASF(ASF_init, DirectGraph_init)
+	asfd = ASFD(ASFD_init, DirectGraph_init)
 
-	print(asf.final_states)
+	tests =		("a", "aa", "ab", "aab", "aabb", "aba", "abab", "ababa", "bab", "baa", "bbb", "aaa", "abbbb", "abb")
+	results =	(False, False, True, True, True, False, False, False, False, False, False, False, True, True)
+
+	assert (asfd.evaluate(tests[i]) == results[i] for i in range(len(tests)))
