@@ -32,7 +32,12 @@ def test_ASFD() -> None:
 
 	asfd = ASFD(ASFD_init, DirectGraph_init)
 
-	tests =		("a", "aa", "ab", "aab", "aabb", "aba", "abab", "ababa", "bab", "baa", "bbb", "aaa", "abbbb", "abb")
-	results =	(False, False, True, True, True, False, False, False, False, False, False, False, True, True)
 
-	assert (asfd.evaluate(tests[i]) == results[i] for i in range(len(tests)))
+	# print("%s: %s" % (x, r))
+	# return
+
+	tests =		np.array(["a", "aa", "ab", "aab", "aabb", "aba", "abab", "ababa", "bab", "baa", "bbb", "aaa", "abbbb", "abb"])
+	results =	np.array([False, False, True, True, True, False, False, False, False, False, False, False, True, True])
+
+	for i in range(len(tests)):
+		assert asfd.evaluate(tests[i]) == results[i]
