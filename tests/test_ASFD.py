@@ -4,6 +4,7 @@ from src.ASFD import ASFD, ASFD_init_t
 import numpy as np
 
 def test_ASFD() -> None:
+	# Refers to docs/Esempio di delta.png
 	DirectGraph_init = DirectGraph_init_t(
 		adj_matr = np.array([
 			[0, 1, 0, 1],
@@ -31,7 +32,7 @@ def test_ASFD() -> None:
 	)
 
 	asfd = ASFD(ASFD_init, DirectGraph_init)
-	
+
 	tests =		np.array(["a", "aa", "ab", "aab", "aabb", "aba", "abab", "ababa", "bab", "baa", "bbb", "aaa", "abbbb", "abb"])
 	results =	np.array([False, False, True, True, True, False, False, False, False, False, False, False, True, True])
 
