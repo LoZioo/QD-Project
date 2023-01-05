@@ -1,6 +1,18 @@
-# xml.etree.ElementTree module implements an API for parsing and creating XML data.
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET					# xml.etree.ElementTree module implements an API for parsing and creating XML data.
 from xml.etree.ElementTree import Element
+
+from typing import TypedDict
+
+class Node_t(TypedDict):
+	posX:			int
+	posY:			int
+	node_id:	int
+	label:		str
+
+class Edge_t(TypedDict):
+	source_id:	int
+	target_id:	int
+	upText:			str
 
 class Parser:
 	# XML tree root.
@@ -13,15 +25,14 @@ class Parser:
 		mytree = ET.parse(pathname)
 		self.root = mytree.getroot()
 
-	def get_info_from_nodes(self):
-		nodes = []
+	def get_info_from_nodes(self) -> list[Node_t]:
+		nodes: list[Node_t] = []
 
 		for item in self.root.findall(".//graph/node"):
-			# Dictionary.
-			node = {
-				"posX":			item.attrib["positionX"],
-				"posY":			item.attrib["positionY"],
-				"node_id":	item.attrib["id"],
+			node: Node_t = {
+				"posX":			int(float(item.attrib["positionX"])),
+				"posY":			int(float(item.attrib["positionY"])),
+				"node_id":	int(item.attrib["id"]),
 				"label":		item.attrib["mainText"]
 			}
 			nodes.append(node)
@@ -29,27 +40,27 @@ class Parser:
 		# So I have an array of dictionaries.
 		return nodes
 
-	def get_info_from_edges(self):
-		edges = []
+	def get_info_from_edges(self) -> list[Edge_t]:
+		edges: list[Edge_t] = []
 
 		for item in self.root.findall(".//graph/edge"):
-			# Dictionary.
-			edge = {
-				"source":	item.attrib["source"],
-				"target":	item.attrib["target"],
-				"upText":	item.attrib["upText"]
+			edge: Edge_t = {
+				"source_id":	int(item.attrib["source"]),
+				"target_id":	int(item.attrib["target"]),
+				"upText":			item.attrib["upText"]
 			}
 			edges.append(edge)
 
 		# So I have an array of dictionaries.
 		return edges
 
-	def getPositions(self):
-		positions = []
+	def getPositions(self) -> list[tuple[int, int]]:
+		positions: list[tuple[int, int]] = []
 		nodes = self.get_info_from_nodes()
 
 		for node in nodes:
-			positions.append((int(float(node["posX"])), int(float(node["posY"]))))
+			coord = (node["posX"], node["posY"])
+			positions.append(coord)
 
 		# Array of x,y couples.
 		return positions
