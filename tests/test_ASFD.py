@@ -17,7 +17,7 @@ def test_ASFD() -> None:
 	)
 
 	ASFD_init = ASFD_init_t(
-		sigma = "ab",
+		sigma = "ba",
 
 		delta = np.array([
 #		qi  'a'   'b'

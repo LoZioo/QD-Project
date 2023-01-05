@@ -39,8 +39,11 @@ class ASFD(DirectGraph):
 		super().__init__(DirectGraph_init)
 
 		# Sigma: from string to array of unuque chars (to implement an ordered set).
-		assert len(ASFD_init.sigma) > 0
-		self.sigma = np.unique(list(ASFD_init.sigma))
+		sigma_tmp = list(ASFD_init.sigma)
+		assert len(sigma_tmp) > 0
+
+		sigma_tmp.sort()										# Applying lexicographic ordering.
+		self.sigma = np.unique(sigma_tmp)		# Conversion to numpy array.
 
 		# q0: from string to index.
 		assert ASFD_init.entry_state in DirectGraph_init.label_arr
