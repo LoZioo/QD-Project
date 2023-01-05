@@ -23,3 +23,17 @@ class Parser:
 			nodes.append(node)
 			# So I have an array of dictionaries
 		return nodes
+
+    def get_info_from_edges(self):
+        edges []
+        for item in self.root.dinfall('.//graph/node'):
+            #Dictionaries for edges
+            edge = {
+                'source' : item.attrib['source'],
+                'target' : item.attrib['target'],
+                'upText' : item.attrib['upText']
+            }
+            edges.append(edge)
+            # New array of edge dictionaries
+            return edges
+
