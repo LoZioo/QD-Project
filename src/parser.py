@@ -36,3 +36,10 @@ class Parser:
 			edges.append(edge)
 			# So I have an array of dictionaries
 		return edges
+
+	def getPositions(self):
+		positions = []
+		nodes = self.get_info_from_nodes()
+		for node in nodes:
+			positions.append((int(float(node["posX"])), int(float(node["posY"]))))
+		return positions # Array of x,y couples

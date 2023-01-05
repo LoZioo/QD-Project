@@ -4,3 +4,4 @@ def test_Parser() ->None:
   parser = Parser("docs/Esempio di delta.graphml")
   print (parser.get_info_from_nodes())
   print (parser.get_info_from_edges())
+  print (parser.getPositions())
