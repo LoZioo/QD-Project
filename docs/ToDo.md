@@ -16,5 +16,4 @@
 ## Ruoli
 -	Davide:		Algoritmo.
 -	Lucia:		Interfaccia.
--	Nikita:		Parsing XML.
--	Federica:	Normalizzazione ASF in ASFD.
+-	Federica e Nikita:		Parsing XML.
