@@ -64,3 +64,13 @@ class Parser:
 
 		# Array of x,y couples.
 		return positions
+
+	def getSigma(self) -> str:
+		sigma: str
+		sigma = ''
+		
+		for	item in self.root.findall(".//graph./edge"):
+       sigma = sigma + item.attrib['upText']
+			  
+		#Sigma string with all of the values from upText of edges	 
+		return sigma

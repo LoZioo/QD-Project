@@ -11,3 +11,6 @@ def test_Parser() -> None:
 
 	print("\ngetPositions")
 	print(parser.getPositions())
+
+	print("\ngetSigma")
+	print(parser.getSigma())
