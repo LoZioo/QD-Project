@@ -12,12 +12,6 @@ import numpy.typing as npt
 # entry_state:						q0
 # final_states:						F
 
-#
-# Fixes:
-# ORDINARE LESSICOGRAFICAMENTE NELLA CONVERSIONE DI SIGMA DA STRINGA AD ARRAY DI CARATTERI!
-#
-#
-
 class ASFD_init_t(NamedTuple):
 	sigma:				str
 	delta:				npt.NDArray[np.string_]		# Matrix; |Q| x |Sigma|.
