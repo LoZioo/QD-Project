@@ -91,17 +91,32 @@ class Parser:
 		assert entryState != ''
 		return entryState
 
-  def get_adj_Matrix(self) -> list[list[int]]:
-    state_count : int
-    state_count = 0
+	def getFinalStates(self) -> list[str]:
+		finalStates: list[str] = []
+		state: str
+		state = ''
+		nodes = self.get_info_from_nodes()
 
-    for item in self.root.findall('.//graph/node'):
-      state_count += 1 #Get the dim of the adj_matrix
+		for node in nodes:
+			state = (node["label"])
+			if state[len(state)-1] == "_":
+				state = state[0:len(state)-1]
+				finalStates.append(state)
 
-    adj_Matrix = np.zeros((state_count,state_count))  #created adj_matrix full of zeros
+		assert finalStates != []
+		return finalStates
 
-    dictionary = self.get_info_from_edges()
-    for x in dictionary:
-      adj_Matrix[x["source_id"]][x["target_id"]] = 1
+	def get_adj_Matrix(self) -> list[list[int]]:
+		state_count : int
+		state_count = 0
 
-    return adj_Matrix	
+		for item in self.root.findall('.//graph/node'):
+			state_count += 1 #Get the dim of the adj_matrix
+
+		adj_Matrix = np.zeros((state_count,state_count))  #created adj_matrix full of zeros
+
+		dictionary = self.get_info_from_edges()
+		for x in dictionary:
+			adj_Matrix[x["source_id"]][x["target_id"]] = 1
+
+		return adj_Matrix	
