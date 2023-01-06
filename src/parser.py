@@ -106,6 +106,22 @@ class Parser:
 		assert finalStates != []
 		return finalStates
 
+	def getLabelArray(self) -> list[str]:
+		labelArray: list[str] = []
+		state: str
+		state = ''
+		nodes = self.get_info_from_nodes()
+
+		for node in nodes:
+			state = (node["label"])
+			if state[0] == "_":
+				state = state[1:len(state)]
+			if state[len(state)-1] == "_":
+				state = state[0:len(state)-1]
+			labelArray.append(state)
+    
+		return labelArray
+
 	def get_adj_Matrix(self) -> list[list[int]]:
 		state_count : int
 		state_count = 0
