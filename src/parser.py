@@ -80,9 +80,10 @@ class Parser:
 		string: str
 		entryState = ''
 		string = ''
+		nodes = self.get_info_from_nodes()
 
-		for item in self.root.findall(".//graph/node"):
-			string = item.attrib["mainText"]
+		for node in nodes:
+			string = (node["label"])
 			if string[0] == "_":
 				entryState = string[1:len(string)]
 
