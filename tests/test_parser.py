@@ -14,3 +14,6 @@ def test_Parser() -> None:
 
 	print("\ngetSigma")
 	print(parser.getSigma())
+
+	print("\ngetEntryState")
+	print(parser.getEntryState())

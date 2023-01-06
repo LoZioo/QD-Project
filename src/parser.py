@@ -70,7 +70,22 @@ class Parser:
 		sigma = ''
 		
 		for	item in self.root.findall(".//graph./edge"):
-       sigma = sigma + item.attrib['upText']
-			  
+			sigma = sigma + item.attrib['upText']
+	  
 		#Sigma string with all of the values from upText of edges	 
 		return sigma
+
+	def getEntryState(self) -> str:
+		entryState: str
+		string: str
+		entryState = ''
+		string = ''
+
+		for item in self.root.findall(".//graph/node"):
+			string = item.attrib["mainText"]
+			if string[0] == "_":
+				entryState = string
+				
+		assert entryState[0] == "_"
+		return entryState
+
