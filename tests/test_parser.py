@@ -17,3 +17,6 @@ def test_Parser() -> None:
 
 	print("\ngetEntryState")
 	print(parser.getEntryState())
+
+	print("\nget_adj_Matrix")
+	print(parser.get_adj_Matrix())

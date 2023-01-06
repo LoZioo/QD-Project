@@ -1,3 +1,4 @@
+import numpy as np
 import xml.etree.ElementTree as ET					# xml.etree.ElementTree module implements an API for parsing and creating XML data.
 from xml.etree.ElementTree import Element
 
@@ -90,3 +91,17 @@ class Parser:
 		assert entryState != ''
 		return entryState
 
+  def get_adj_Matrix(self) -> list[list[int]]:
+    state_count : int
+    state_count = 0
+
+    for item in self.root.findall('.//graph/node'):
+      state_count += 1 #Get the dim of the adj_matrix
+
+    adj_Matrix = np.zeros((state_count,state_count))  #created adj_matrix full of zeros
+
+    dictionary = self.get_info_from_edges()
+    for x in dictionary:
+      adj_Matrix[x["source_id"]][x["target_id"]] = 1
+
+    return adj_Matrix	
