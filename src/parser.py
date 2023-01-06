@@ -84,8 +84,8 @@ class Parser:
 		for item in self.root.findall(".//graph/node"):
 			string = item.attrib["mainText"]
 			if string[0] == "_":
-				entryState = string
-				
-		assert entryState[0] == "_"
+				entryState = string[1:len(string)]
+
+		assert entryState != ''
 		return entryState
 
