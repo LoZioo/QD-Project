@@ -26,4 +26,7 @@ def test_Parser() -> None:
 
 	print("\nget_adj_Matrix")
 	print(parser.get_adj_Matrix())
+	
+	print("\nget_delta_Matrix")
+	print(parser.get_delta_Matrix())
 

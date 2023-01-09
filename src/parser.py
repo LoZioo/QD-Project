@@ -136,3 +136,51 @@ class Parser:
 			adj_Matrix[x["source_id"]][x["target_id"]] = 1
 
 		return adj_Matrix	
+
+	def get_delta_Matrix(self) -> list[list[str]]:
+		distinct_states = self.getLabelArray()
+		distinct_deltas = []
+		nodes = self.get_info_from_nodes()
+		edges = self.get_info_from_edges()
+		for edge in edges:
+			delta = (edge['upText'])
+			for i in delta:
+				if i not in distinct_deltas:
+					distinct_deltas.append(i)
+		distinct_deltas.sort()
+		assert distinct_deltas != []
+
+		delta_Matrix = [["" for x in range(len(distinct_deltas))] for y in range (len(distinct_states))]
+
+		count_delta_pos = -1
+		count_pos_substr = -1
+		temp = 0
+		for i in range(0,len(distinct_states)): 
+			for item in edges:               
+				if item["source_id"] == i: 
+					if len(item["upText"]) < 2: # if the upText is with only 1 char
+						for j in range(0,len(distinct_deltas)):     
+							for char in distinct_deltas: 
+								count_delta_pos += 1 
+								if item["upText"] == char: 
+									temp = count_delta_pos #save the value of the correct collumn
+									count_delta_pos = -1 #have to reset the position once we found the correct upText
+									break
+							for x in range(0,len(nodes)): 
+								if item["target_id"] == nodes[x]["node_id"]: 
+									delta_Matrix[i][temp] = distinct_states[item["target_id"]] 
+									break
+					else: #for all uptext with more then 1 char
+						for v in range(0,len(item["upText"])):
+							for j in range(0,len(distinct_deltas)):     
+								for char in distinct_deltas: 
+									count_delta_pos += 1 
+									count_pos_substr += 1
+									if item["upText"][count_pos_substr:count_pos_substr+1] == char: 
+										temp = count_delta_pos 
+										for x in range(0,len(nodes)): 
+											if item["target_id"] == nodes[x]["node_id"]: 
+												delta_Matrix[i][temp] = distinct_states[item["target_id"]] 
+												break
+								count_delta_pos = -1 #we reset it here because now we are dealing with strings and not chars   
+		return delta_Matrix
