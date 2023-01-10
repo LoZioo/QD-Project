@@ -82,8 +82,8 @@ class Parser:
 	def getEntryState(self) -> str:
 		nodes = self.getInfoFromNodes()
 
-		entry_state: str = ""
-		label: str
+		entry_state:	str = ""
+		label:				str
 
 		for node in nodes:
 			label = node["label"]
@@ -109,7 +109,6 @@ class Parser:
 
 		# assert final_states != {}
 		assert final_states
-
 		return final_states
 
 	def getLabelArray(self) -> npt.NDArray[np.string_]:
