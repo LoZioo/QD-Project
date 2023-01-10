@@ -3,30 +3,26 @@ from src.parser import Parser
 def test_Parser() -> None:
 	parser = Parser("docs/Esempio di delta.graphml")
 
-	print("\n\nget_info_from_nodes")
-	print(parser.get_info_from_nodes())
+	print("\n\ngetInfoFromNodes:")
+	for node in parser.getInfoFromNodes():
+		print(node)
 
-	print("\nget_info_from_edges")
-	print(parser.get_info_from_edges())
+	print("\ngetInfoFromEdges:")
+	for edge in parser.getInfoFromEdges():
+		print(edge)
 
-	print("\ngetPositions")
-	print(parser.getPositions())
+	print("\ngetPositions:")
+	for couple in parser.getPositions():
+		print(couple)
 
-	print("\ngetSigma")
-	print(parser.getSigma())
+	print()
+	print("getSigma: %s" % parser.getSigma())
+	print("getEntryState: %s" % parser.getEntryState())
+	print("getFinalStates: %s" % parser.getFinalStates())
+	print("getLabelArray: %s" % parser.getLabelArray())
 
-	print("\ngetEntryState")
-	print(parser.getEntryState())
-
-	print("\ngetFinalStates")
-	print(parser.getFinalStates())
-
-	print("\ngetLabelArray")
-	print(parser.getLabelArray())
-
-	print("\nget_adj_Matrix")
-	print(parser.get_adj_Matrix())
+	print("\ngetAdjMatr")
+	print(parser.getAdjMatr())
 	
-	print("\nget_delta_Matrix")
-	print(parser.get_delta_Matrix())
-
+	print("\ngetDelta")
+	print(parser.getDelta())
