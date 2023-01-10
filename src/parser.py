@@ -25,8 +25,8 @@ class Parser:
 	def __init__(self, pathname: str) -> None:
 		assert pathname[len(pathname)-8 : len(pathname)] == ".graphml"
 
-		mytree = ET.parse(pathname)
-		self.root = mytree.getroot()
+		XML_tree = ET.parse(pathname)
+		self.root = XML_tree.getroot()
 
 	# General methods.
 	def getInfoFromNodes(self) -> list[Node_t]:
