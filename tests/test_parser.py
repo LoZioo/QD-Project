@@ -39,6 +39,14 @@ def test_Parser() -> None:
 	assert entryState == entryStateParsing
 	assert np.array_equal(finalStates, finalStatesParsing)
 
+	# test for getLabelArray
+
+	labelArray: npt.NDArray[np.string_] = ["q1", "q2", "q3", "q4"]
+
+	labelArrayParsing: npt.NDArray[np.string_] = parser.getLabelArray()
+
+	assert np.array_equal(labelArray, labelArrayParsing)
+
 '''
 	print("\ngetInfoFromEdges:")
 	for edge in parser.getInfoFromEdges():
@@ -47,7 +55,7 @@ def test_Parser() -> None:
 	print()
 	print("getSigma: %s" % parser.getSigma())
 	
-	print("getLabelArray: %s" % parser.getLabelArray())
+	
 
 	print("\ngetAdjMatr")
 	print(parser.getAdjMatr())
