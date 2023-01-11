@@ -28,6 +28,17 @@ def test_Parser() -> None:
 
 	assert np.array_equal(positions, positionsParser)
 
+	# test for getEntryState and getFinalStates
+
+	entryState: str = "q1"
+	finalStates: set[str] = {'q3'}
+
+	entryStateParsing: str = parser.getEntryState()
+	finalStatesParsing: set[str] = parser.getFinalStates()
+
+	assert entryState == entryStateParsing
+	assert np.array_equal(finalStates, finalStatesParsing)
+
 '''
 	print("\ngetInfoFromEdges:")
 	for edge in parser.getInfoFromEdges():
@@ -35,8 +46,7 @@ def test_Parser() -> None:
 
 	print()
 	print("getSigma: %s" % parser.getSigma())
-	print("getEntryState: %s" % parser.getEntryState())
-	print("getFinalStates: %s" % parser.getFinalStates())
+	
 	print("getLabelArray: %s" % parser.getLabelArray())
 
 	print("\ngetAdjMatr")
