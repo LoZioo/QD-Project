@@ -47,19 +47,39 @@ def test_Parser() -> None:
 
 	assert np.array_equal(labelArray, labelArrayParsing)
 
-'''
-	print("\ngetInfoFromEdges:")
-	for edge in parser.getInfoFromEdges():
-		print(edge)
+	#test for getInfoFromEdges
 
-	print()
-	print("getSigma: %s" % parser.getSigma())
-	
-	
+	edgesParser: list[Edge_t] = parser.getInfoFromEdges()
 
-	print("\ngetAdjMatr")
-	print(parser.getAdjMatr())
-	
-	print("\ngetDelta")
-	print(parser.getDelta())
-'''
+	firstEdge : Edge_t = {'source_id': 0, 'target_id': 1, 'upText' : 'a'}
+	secondEdge : Edge_t = {'source_id': 1, 'target_id': 2, 'upText' : 'b'}
+	thirdEdge : Edge_t = {'source_id': 2, 'target_id': 3, 'upText' : 'a'}
+	fourthEdge : Edge_t = {'source_id': 0, 'target_id': 3, 'upText' : 'b'}
+	fifthEdge : Edge_t = {'source_id': 3, 'target_id': 3, 'upText' : 'ab'}
+	sixthEdge : Edge_t = {'source_id': 1, 'target_id': 1, 'upText' : 'a'}
+	seventhEdge : Edge_t = {'source_id': 2, 'target_id': 2, 'upText' : 'b'}
+
+	edges: list[Edge_t] = [firstEdge, secondEdge, thirdEdge, fourthEdge, fifthEdge, sixthEdge, seventhEdge]
+
+	assert np.array_equal(edgesParser,edges)
+
+	#test for getSigma
+
+	sigmaParser = parser.getSigma()
+	sigma = "abababab"
+
+	assert sigmaParser == sigma
+
+	#test for getAdjMatr
+
+	adjMatrParser : npt.NDArray[np.uint8] = parser.getAdjMatr()
+	adjMatr : npt.NDArray[np.uint8] = [[0, 1, 0, 1],[0, 1, 1, 0],[0, 0, 1, 1],[0, 0, 0, 1]]
+
+	assert np.array_equal(adjMatrParser,adjMatr)
+
+	#test for getDelta
+
+	deltaParser: npt.NDArray[np.string_] = parser.getDelta()
+	delta: npt.NDArray[np.string_] = [["q2", "q4"], ["q2", "q3"], ["q4", "q3"], ["q4", "q4"]]
+
+	assert np.array_equal(deltaParser,delta)
