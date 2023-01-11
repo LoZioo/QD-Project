@@ -20,14 +20,18 @@ def test_Parser() -> None:
 
 	assert np.array_equal(nodes, nodesParser)
 
+	# test for getPositions
+
+	positions: list[tuple[int, int]] = [(321, 147), (464, 63), (605, 139), (465, 220)]
+
+	positionsParser: list[tuple[int, int]] = parser.getPositions()
+
+	assert np.array_equal(positions, positionsParser)
+
 '''
 	print("\ngetInfoFromEdges:")
 	for edge in parser.getInfoFromEdges():
 		print(edge)
-
-	print("\ngetPositions:")
-	for couple in parser.getPositions():
-		print(couple)
 
 	print()
 	print("getSigma: %s" % parser.getSigma())
