@@ -16,7 +16,7 @@ DirectGraph_init = DirectGraph_init_t(
 )
 
 ASFD_init = ASFD_init_t(
-	sigma = "ab",
+	sigma = "abababab",
 
 	delta = np.array([
 #		qi  'a'   'b'
