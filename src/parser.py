@@ -17,6 +17,11 @@ class Edge_t(TypedDict):
 	target_id:	int
 	upText:			str
 
+class Positions_t(TypedDict):
+	label:	str
+	x:			int
+	y:			int
+
 class Parser:
 	# XML tree root.
 	root: Element
@@ -59,15 +64,19 @@ class Parser:
 		return edges
 
 	# Derivated methods.
-	def getPositions(self) -> list[tuple[int, int]]:
-		positions: list[tuple[int, int]] = []
+	def getPositions(self) -> list[Positions_t]:
 		nodes = self.getInfoFromNodes()
+		positions: list[Positions_t] = []
 
 		for node in nodes:
-			coord = (node["posX"], node["posY"])
-			positions.append(coord)
+			position: Positions_t = {
+				"label":	node["label"].strip("_"),
+				"x":			node["posX"],
+				"y":			node["posY"],
+			}
 
-		# Array of (x, y) couples.
+			positions.append(position)
+
 		return positions
 
 	def getSigma(self) -> str:
