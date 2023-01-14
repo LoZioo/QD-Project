@@ -3,8 +3,8 @@ from typing import Union, NamedTuple
 import numpy as np
 import numpy.typing as npt
 
-from src.queue import Queue
-from src.stack import Stack
+from src.aux_queue import Queue
+from src.aux_stack import Stack
 
 class DirectGraph_init_t(NamedTuple):
 	adj_matr:		npt.NDArray[np.uint8]

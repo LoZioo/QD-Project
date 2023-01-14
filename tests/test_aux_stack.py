@@ -1,4 +1,4 @@
-from src.stack import Stack
+from src.aux_stack import Stack
 
 ATTEMPTS = 3
 
