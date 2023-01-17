@@ -29,29 +29,33 @@ class ASFD(DirectGraph):
 	final_states:	set[int]
 
 	def __init__(self, ASFD_init: ASFD_init_t, DirectGraph_init: DirectGraph_init_t) -> None:
-		# Init DirectGraph superclass.
+		# Q: init DirectGraph superclass.
 		super().__init__(DirectGraph_init)
 
-		# From string to array of unuque chars (to implement an ordered set).
-		assert len(ASFD_init.sigma) > 0
-		self.sigma = np.unique(list(ASFD_init.sigma))
+		# Sigma: from string to array of unuque chars (to implement an ordered set).
+		sigma_tmp = list(ASFD_init.sigma)
+		assert len(sigma_tmp) > 0
 
-		# From string to index.
+		sigma_tmp.sort()										# Applying lexicographic ordering.
+		self.sigma = np.unique(sigma_tmp)		# Conversion to numpy array.
+
+		# q0: from string to index.
+		assert ASFD_init.entry_state in DirectGraph_init.label_arr
 		res = np.where(DirectGraph_init.label_arr == ASFD_init.entry_state)[0]
 
 		assert len(res) == 1
 		self.entry_state = res[0]
 
-		# From string to indexes.
+		# F: from string to indexes.
 		assert len(ASFD_init.final_states) <= len(DirectGraph_init.label_arr)
 		assert (e in DirectGraph_init.label_arr for e in ASFD_init.final_states)
 		self.final_states = { np.where(DirectGraph_init.label_arr == e)[0][0] for e in ASFD_init.final_states }
 
-		# Check if delta is defined for every couple (q x c).
+		# delta: check if delta is defined for every couple (q x c).
 		assert ASFD_init.delta.shape == (len(DirectGraph_init.label_arr), len(self.sigma))
 		assert ((q in DirectGraph_init.label_arr for q in row) for row in ASFD_init.delta)
 
-		# Merging between delta and adj_matr.
+		# delta: merging between delta and adj_matr.
 		n = len(DirectGraph_init.adj_matr)			# |Q|.
 		self.delta_matr = np.full((n, n), {})
 
