@@ -28,7 +28,8 @@ class Parser:
 
 	# Constructor.
 	def __init__(self, pathname: str) -> None:
-		assert pathname[len(pathname)-8 : len(pathname)] == ".graphml"
+		# assert pathname[len(pathname)-8 : len(pathname)] == ".graphml"
+		assert pathname[-8:] == ".graphml"
 
 		XML_tree = ET.parse(pathname)
 		self.root = XML_tree.getroot()
@@ -98,7 +99,8 @@ class Parser:
 			label = node["label"]
 
 			if label[0] == "_":
-				entry_state = label[1 : len(label)]
+				# entry_state = label[1 : len(label)]
+				entry_state = label[1:]
 
 		assert entry_state != ""
 		return entry_state
@@ -112,8 +114,10 @@ class Parser:
 		for node in nodes:
 			label = node["label"]
 
-			if label[len(label)-1] == "_":
-				label = label[0 : len(label)-1]
+			# if label[len(label)-1] == "_":
+			if label[-1] == "_":
+				# label = label[0 : len(label)-1]
+				label = label[:-1]
 				final_states.add(label)
 
 		# assert final_states != {}
