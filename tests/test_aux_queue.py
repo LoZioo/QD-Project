@@ -1,4 +1,4 @@
-from src.queue import Queue
+from src.aux_queue import Queue
 
 ATTEMPTS = 3
 
