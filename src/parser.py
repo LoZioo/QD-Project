@@ -1,5 +1,4 @@
 import xml.etree.ElementTree as ET					# xml.etree.ElementTree module implements an API for parsing and creating XML data.
-from xml.etree.ElementTree import Element
 
 from typing import TypedDict
 
@@ -28,11 +27,19 @@ class Parser:
 		# assert pathname[len(pathname)-8 : len(pathname)] == ".graphml"
 		assert pathname[-8:] == ".graphml"
 
+		# XML tree root.
 		XML_tree = ET.parse(pathname)
 		self.root = XML_tree.getroot()
 
+		# Buffer properties.
+		self.nodes_buffer = None
+		self.edges_buffer = None
+
 	# General methods.
 	def getInfoFromNodes(self) -> list[Node_t]:
+		if self.nodes_buffer is not None:
+			return self.nodes_buffer
+
 		nodes: list[Node_t] = []
 
 		for item in self.root.findall(".//graph/node"):
@@ -44,10 +51,13 @@ class Parser:
 			}
 			nodes.append(node)
 
-		# So I have an array of dictionaries.
+		self.nodes_buffer = nodes
 		return nodes
 
 	def getInfoFromEdges(self) -> list[Edge_t]:
+		if self.edges_buffer is not None:
+			return self.edges_buffer
+
 		edges: list[Edge_t] = []
 
 		for item in self.root.findall(".//graph/edge"):
@@ -58,7 +68,7 @@ class Parser:
 			}
 			edges.append(edge)
 
-		# So I have an array of dictionaries.
+		self.edges_buffer = edges
 		return edges
 
 	# Derivated methods.
