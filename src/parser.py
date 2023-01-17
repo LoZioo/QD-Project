@@ -23,9 +23,6 @@ class Positions_t(TypedDict):
 	y:			int
 
 class Parser:
-	# XML tree root.
-	root: Element
-
 	# Constructor.
 	def __init__(self, pathname: str) -> None:
 		# assert pathname[len(pathname)-8 : len(pathname)] == ".graphml"
