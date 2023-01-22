@@ -51,6 +51,7 @@ class DirectGraphPrinter:
 	#By passing a path through the parameter "path" the image will be saved in the desired location
 	def printGraph(self, path: str = "") -> None:
 
+		plt.figure(figsize=(15,10))
 		nx.draw_networkx(self.graph_to_print, self.positions,node_size= 1000,font_size = 18, node_color= 'white', edgecolors= 'black', linewidths= 2, width= 2)
 
 		ax = plt.gca()
