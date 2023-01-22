@@ -15,9 +15,9 @@ def test_ASFDPrinter() -> None:
 	np.testing.assert_equal(edgeLabels_dict, extracted_dict)
 
 	#test printASFD
-	printerASFD.printASFD("docs/extracted_graph.jpg")
+	printerASFD.printASFD("docs/extracted_ASFD.jpg")
 	img_ASFD = cv2.imread("docs/test_ASFD.jpg")
-	img_extracted = cv2.imread("docs/extracted_graph.jpg")
+	img_extracted = cv2.imread("docs/extracted_ASFD.jpg")
 	
 	img_graph = cv2.cvtColor(img_ASFD, cv2.COLOR_BGR2GRAY)
 	img_extracted = cv2.cvtColor(img_extracted, cv2.COLOR_BGR2GRAY)
