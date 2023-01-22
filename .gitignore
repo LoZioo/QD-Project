@@ -4,8 +4,9 @@
 **/.DS_Store
 .coverage
 
-#Directories
-img/
+#Files
+docs/extracted_graph.jpg
+docs/extracted_ASFD.jpg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
