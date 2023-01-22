@@ -1,6 +1,7 @@
 import numpy as np
 from src.parser import Parser
 from src.DirectGraphPrinter import DirectGraphPrinter
+import cv2
 
 def test_DirectGraphPrinter() -> None:
     parser = Parser("docs/Esempio di delta.graphml")
@@ -17,3 +18,19 @@ def test_DirectGraphPrinter() -> None:
     extracted_dict : dict[str, tuple[int,int]] = printerDG.getPositions(parser)
     
     np.testing.assert_equal(position_dict, extracted_dict)
+
+    #test printGraph
+    printerDG.printGraph("docs/extracted_graph.jpg")
+    img_graph = cv2.imread("docs/test_graph.jpg")
+    img_extracted = cv2.imread("docs/extracted_graph.jpg")
+    
+    img_graph = cv2.cvtColor(img_graph, cv2.COLOR_BGR2GRAY)
+    img_extracted = cv2.cvtColor(img_extracted, cv2.COLOR_BGR2GRAY)
+
+    #MSE calculation
+    h, w = img_graph.shape
+    diff = cv2.subtract(img_graph,img_extracted)
+    err = np.sum(diff**2)
+    mse = err/(float(h*w))
+    
+    np.testing.assert_equal(mse,0)
