@@ -1,7 +1,7 @@
+# type: ignore
 import networkx as nx
 import matplotlib.pyplot as plt
 from src.parser import Parser
-
 
 class DirectGraphPrinter:
 
