@@ -24,7 +24,7 @@ def test_DirectGraphPrinter() -> None:
 
 	# MSE comparison.
 	saved_image = cv2.imread(IMG_PATH)
-	expected_image = cv2.imread("include/DirectGraph_printer_test_graph.jpg")
+	expected_image = cv2.imread("img/tests/DirectGraph_printer_test_graph.jpg")
 
 	saved_image = cv2.cvtColor(saved_image, cv2.COLOR_BGR2GRAY)
 	expected_image = cv2.cvtColor(expected_image, cv2.COLOR_BGR2GRAY)
