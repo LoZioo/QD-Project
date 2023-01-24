@@ -1,60 +1,58 @@
 # type: ignore
-import networkx as nx
-import matplotlib.pyplot as plt
 from src.parser import Parser
 
+import networkx as nx
+import matplotlib.pyplot as plt
+
 class DirectGraphPrinter:
-	graph_to_print: nx.DiGraph							# Graph that this class will print.
-	positions: dict[str, tuple[int, int]]		# The positions where each node will be printed.
-
 	# Inizialize graph_to_print and positions.
-	def __init__(self, p: Parser) -> None:
-		l_adj = self.toCouple(p)
-		self.graph_to_print = nx.DiGraph()
-		self.graph_to_print.add_nodes_from(p.getLabelArray())
-		self.graph_to_print.add_edges_from(l_adj)
-		self.positions = self.getPositions(p)
+	def __init__(self, parser: Parser) -> None:
+		# Save the parser as a property, so other methods can access it to retrieve data.
+		self.parser = parser
 
-	# Using the adjacency matrix to generate the edges of the couples.
-	def toCouple(self, p:Parser) -> list[(str,str)]:
-		adj_matr = p.getAdjMatr()
-		label_arr = p.getLabelArray()
-		l = []
-		for i in range(len(adj_matr)):
-			for j in range(len(adj_matr[i])):
-				if adj_matr[i][j] == 1 :
-					l = l + [(label_arr[i],label_arr[j])]
-		return l
+	# From the classical indexed adj list (from parser) to a labeled adj list.
+	def getLabeledAdjList(self) -> list[tuple[str, str]]:
+		label_arr = self.parser.getLabelArray()
+		adj_list = self.parser.getAdjList()
+		adj_list_labeled: list[tuple[str, str]] = []
 
-	# Extract the positions of the nodes.
-	def getPositions(self, p:Parser) -> dict[str, tuple[int, int]]:
-		d = {}
-		nodes = p.getInfoFromNodes()
+		for edge in adj_list:
+			adj_list_labeled.append((label_arr[edge[0]], label_arr[edge[1]]))
+
+		return adj_list_labeled
+
+	# Convert the getPositions from parser class to a NetworkX compatible format.
+	def getPositionsForNetworkX(self) -> dict[str, tuple[int, int]]:
+		nodes = self.parser.getPositions()
+		positions: dict[str, tuple[int, int]] = {}
 
 		for node in nodes:
-			l = node["label"]
+			positions[node["label"]] = (node["x"], node["y"])
 
-			if l[0] == "_":
-				l = l[1 : len(l)]
+		return positions
 
-			if l[len(l)-1] == "_":
-				l = l[0 : len(l)-1]
-
-			d[l] = (node["posX"], node["posY"])
-
-		return d
-
-	# Print an image of the graph using the functions of the library Network.x by passing
+	# Print an image of the graph using the functions of the library NetworkX by passing
 	# a path through the parameter "path" the image will be saved in the desired location.
-	def printGraph(self, path: str = "") -> None:
-		plt.figure(figsize=(15,10))
-		nx.draw_networkx(self.graph_to_print, self.positions,node_size= 1000,font_size = 18, node_color= 'white', edgecolors= 'black', linewidths= 2, width= 2)
+	def save(self, path: str, figsize_x: int = 15, figsize_y = 10) -> None:
+		networkx_positions = self.getPositionsForNetworkX()
+		graph_to_print = nx.DiGraph()
 
-		ax = plt.gca()
-		ax.margins(0.20)
+		graph_to_print.add_nodes_from(self.parser.getLabelArray())
+		graph_to_print.add_edges_from(self.getLabeledAdjList())
+
+		plt.figure(figsize = (figsize_x, figsize_y))
 		plt.axis("off")
 
-		if path != "":
-			plt.savefig(path)
+		nx.draw_networkx(
+			graph_to_print,
+			networkx_positions,
+			node_size = 1000,
+			font_size = 18,
+			node_color = "white",
+			edgecolors = "black",
+			linewidths = 2,
+			width = 2
+		)
 
-		plt.show()
+		# plt.show()
+		plt.savefig(path)
