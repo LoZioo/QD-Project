@@ -57,7 +57,11 @@ def test_Parser() -> None:
 	assert np.array_equal(DirectGraph_init.adj_matr, parser.getAdjMatr())
 
 	# getAdjList.
-	adj_list_expected: list[tuple[int, int]] = [(0, 1), (1, 2), (2, 3), (0, 3), (3, 3), (1, 1), (2, 2)]
+	adj_list_expected: list[tuple[int, int]] = []
+
+	for edge in edges:
+		adj_list_expected.append((edge["source_id"], edge["target_id"]))
+
 	assert np.array_equal(adj_list_expected, parser.getAdjList())
 
 	# getDelta.
