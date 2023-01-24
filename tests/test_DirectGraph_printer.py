@@ -17,7 +17,7 @@ def test_DirectGraphPrinter() -> None:
 	assert expected_positions == printer.getPositionsForNetworkX()
 
 	# save.
-	IMG_PATH = "img/graph.jpg"
+	IMG_PATH = "img/saved/graph.jpg"
 
 	# Save the generated image.
 	printer.save(IMG_PATH)
