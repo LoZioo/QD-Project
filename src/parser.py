@@ -164,6 +164,15 @@ class Parser:
 			adj_matr[i][j] = 1
 
 		return adj_matr
+	
+	def getAdjList(self) -> list[tuple[int, int]]:
+		edges = self.getInfoFromEdges()
+		adj_list: list[tuple[int, int]] = []
+
+		for edge in edges:
+			adj_list.append((edge["source_id"], edge["target_id"]))
+
+		return adj_list
 
 	def getDelta(self) -> npt.NDArray[np.string_]:
 		nodes = self.getInfoFromNodes()

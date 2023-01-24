@@ -56,5 +56,9 @@ def test_Parser() -> None:
 	# getAdjMatr.
 	assert np.array_equal(DirectGraph_init.adj_matr, parser.getAdjMatr())
 
+	# getAdjList.
+	adj_list_expected: list[tuple[int, int]] = [(0, 1), (1, 2), (2, 3), (0, 3), (3, 3), (1, 1), (2, 2)]
+	assert np.array_equal(adj_list_expected, parser.getAdjList())
+
 	# getDelta.
 	assert np.array_equal(ASFD_init.delta, parser.getDelta())
