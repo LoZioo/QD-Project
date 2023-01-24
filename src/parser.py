@@ -164,7 +164,7 @@ class Parser:
 			adj_matr[i][j] = 1
 
 		return adj_matr
-	
+
 	def getAdjList(self) -> list[tuple[int, int]]:
 		edges = self.getInfoFromEdges()
 		adj_list: list[tuple[int, int]] = []
