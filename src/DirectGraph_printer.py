@@ -4,10 +4,13 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 class DirectGraphPrinter:
-	# Inizialize graph_to_print and positions.
+	# Inizialize self.graph_to_print and positions.
 	def __init__(self, parser: Parser) -> None:
 		# Save the parser as a property, so other methods can access it to retrieve data.
 		self.parser = parser
+
+		# We need to save this because the class ASFDPrinter will use it to print the ASFD over the graph.
+		self.graph_to_print = nx.DiGraph()
 
 	# From the classical indexed adj list (from parser) to a labeled adj list.
 	def getLabeledAdjList(self) -> list[tuple[str, str]]:
@@ -33,19 +36,18 @@ class DirectGraphPrinter:
 
 	# Save an image of the graph using the functions of the library NetworkX by passing
 	# a path through the parameter "path" the image will be saved in the desired location.
-	def saveGraph(self, path: str, figsize_x: int = 15, figsize_y: int = 10) -> None:
+	def saveGraph(self, path: str, save: bool = True, print: bool = False) -> None:
 		networkx_positions = self.getNodePositions()
-		graph_to_print = nx.DiGraph()
 
-		graph_to_print.add_nodes_from(self.parser.getLabelArray())
-		graph_to_print.add_edges_from(self.getLabeledAdjList())
+		self.graph_to_print.add_nodes_from(self.parser.getLabelArray())
+		self.graph_to_print.add_edges_from(self.getLabeledAdjList())
 
-		plt.figure(figsize = (figsize_x, figsize_y))
+		plt.figure(figsize = (15, 10))
 		plt.axis("off")
 
 		# Draw nodes.
 		nx.draw_networkx(
-			graph_to_print,
+			self.graph_to_print,
 			networkx_positions,
 			width = 2,
 			linewidths = 2,
@@ -55,5 +57,8 @@ class DirectGraphPrinter:
 			edgecolors = "black"
 		)
 
-		# plt.show()
-		plt.savefig(path)
+		if print:
+			plt.show()
+
+		if save:
+			plt.savefig(path)
