@@ -47,7 +47,7 @@ class DirectGraphPrinter:
 			graph_to_print,
 			networkx_positions,
 			node_size = 1000,
-			font_size = 18,
+			font_size = 14,
 			node_color = "white",
 			edgecolors = "black",
 			linewidths = 2,

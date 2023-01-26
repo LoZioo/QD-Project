@@ -40,10 +40,9 @@ class ASFDPrinter(DirectGraphPrinter):
 			networkx_positions,
 			width = 2,
 			linewidths = 2,
-			node_size = 500,
+			node_size = 1000,
 			node_color = "white",
-			font_size = 10,
-			alpha = 0.7,
+			font_size = 16,
 			edgecolors = "black",
 			labels = { node: node for node in self.parser.getLabelArray() }
 		)
@@ -52,7 +51,7 @@ class ASFDPrinter(DirectGraphPrinter):
 		nx.draw_networkx_nodes(
 			graph_to_print,
 			networkx_positions,
-			node_size = 500,
+			node_size = 1000,
 			nodelist = { self.parser.getEntryState() },
 			node_color = "tab:red",
 			alpha = 0.2,
@@ -63,7 +62,7 @@ class ASFDPrinter(DirectGraphPrinter):
 		nx.draw_networkx_nodes(
 			graph_to_print,
 			networkx_positions,
-			node_size = 500,
+			node_size = 1000,
 			nodelist = self.parser.getFinalStates(),
 			node_color = "tab:green",
 			alpha = 0.2,
