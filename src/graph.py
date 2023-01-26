@@ -11,10 +11,6 @@ class DirectGraph_init_t(NamedTuple):
 	label_arr:	npt.NDArray[np.string_]
 
 class DirectGraph:
-	# ---| Logical private attributes and methods |---
-	adj_matr:		npt.NDArray[np.uint8]
-	label_arr:	npt.NDArray[np.string_]
-
 	def label_to_index(self, label: str) -> Union[int, None]:
 		vertex_search_results = np.where(self.label_arr == label)[0]
 
