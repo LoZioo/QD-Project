@@ -1,61 +1,90 @@
+from src.parser import Parser
+from src.DirectGraph_printer import DirectGraphPrinter
+
 import networkx as nx
 import matplotlib.pyplot as plt
-from src.parser import Parser
-from src.DirectGraphPrinter import DirectGraphPrinter
-
-
 
 class ASFDPrinter(DirectGraphPrinter):
+	def __init__(self, parser: Parser) -> None:
+		# Call the constructor of the class DirectGraphPrinter.
+		super().__init__(parser)
+		self.parser = parser
 
-	edge_label : dict[tuple[str,str], str]
-	final_state: set[str]
+	# Convert the getInfoFromEdges from parser to a NetworkX compatible format.
+	# {("q1", "q2"): "a", ("q2", "q3"): "b", ("q3", "q4"): "a", ("q1", "q4"): "b", ("q4", "q4"): "ab", ("q2", "q2"): "a", ("q3", "q3"): "b"}
+	def getEdgeTransitions(self) -> dict[tuple[str, str], str]:
+		label_arr = self.parser.getLabelArray()
+		edges = self.parser.getInfoFromEdges()
+		transitions: dict[tuple[str, str], str] = {}
 
-	#Call the constructor of the class DirectGraphPrinter and inizialize edge_label and final_state
-	def __init__(self, p: Parser) -> None :
-		super().__init__(p)
-
-		self.edge_label = self.getEdgeLabels(p)
-
-		self.final_state = p.getFinalStates()
-
-	#Extract the labels of the edges
-	def getEdgeLabels(self, p:Parser) -> dict[tuple[str,str], str] :
-		edges = p.getInfoFromEdges()
-		label_arr = p.getLabelArray()
-
-		d = {}
 		for edge in edges:
-			d[( label_arr[edge["source_id"]], label_arr[edge["target_id"]])] = edge["upText"]
+			transitions[ (label_arr[edge["source_id"]], label_arr[edge["target_id"]]) ] = edge["upText"]
 
-		return d
+		return transitions
 
-	#Print an image of the ASFD using the functions of the library Network.x
-	#By passing a path through the parameter "path" the image will be saved in the desired location
-	def printASFD(self, path: str ="") -> None :
+	# Save an image of the ASFD using the functions of the library NetworkX by passing
+	# a path through the parameter "path" the image will be saved in the desired location.
+	def saveASFD(self, path: str, figsize_x: int = 15, figsize_y: int = 10) -> None:
+		networkx_positions = self.getNodePositions()
+		graph_to_print = nx.DiGraph()
 
-		plt.figure(figsize=(15,10))
+		graph_to_print.add_nodes_from(self.parser.getLabelArray())
+		graph_to_print.add_edges_from(self.getLabeledAdjList())
+
+		plt.figure(figsize = (figsize_x, figsize_y))
+		plt.axis("off")
+
+		# Draw nodes.
 		nx.draw_networkx(
-			self.graph_to_print, self.positions, width=2, linewidths=2,
-			node_size=500, node_color='white', font_size = 10, alpha = 0.7, edgecolors = 'black',
-			labels={node: node for node in self.graph_to_print.nodes()}
+			graph_to_print,
+			networkx_positions,
+			width = 2,
+			linewidths = 2,
+			node_size = 500,
+			node_color = "white",
+			font_size = 10,
+			alpha = 0.7,
+			edgecolors = "black",
+			labels = { node: node for node in self.parser.getLabelArray() }
 		)
 
-		#The final_node is printed in orange
-		nx.draw_networkx_nodes(self.graph_to_print,self.positions, node_size=500, nodelist=self.final_state, node_color="tab:orange", alpha=0.2, edgecolors = 'black')
+		# The entry_state is printed in red.
+		nx.draw_networkx_nodes(
+			graph_to_print,
+			networkx_positions,
+			node_size = 500,
+			nodelist = { self.parser.getEntryState() },
+			node_color = "tab:red",
+			alpha = 0.2,
+			edgecolors = "black"
+		)
 
-		#shifting positions for a better visualisation of edge labels
-		edge_labels_pos : dict[str, tuple[int, int]] ={}
-		for pos in self.positions:
-			edge_labels_pos[pos] = (self.positions[pos][0], self.positions[pos][1] + 8)
+		# The final_states are printed in green.
+		nx.draw_networkx_nodes(
+			graph_to_print,
+			networkx_positions,
+			node_size = 500,
+			nodelist = self.parser.getFinalStates(),
+			node_color = "tab:green",
+			alpha = 0.2,
+			edgecolors = "black"
+		)
 
+		# Shift positions for a better visualisation of edge labels.
+		edge_labels_pos: dict[str, tuple[int, int]] = {}
+		for position in networkx_positions:
+			edge_labels_pos[position] = (networkx_positions[position][0], networkx_positions[position][1] + 8)
 
+		# Draw transitions.
 		nx.draw_networkx_edge_labels(
-			self.graph_to_print, edge_labels_pos,
-			edge_labels= self.edge_label, label_pos=0.5, font_size= 12,
-			font_color='blue', alpha=0.8,
+			graph_to_print,
+			edge_labels_pos,
+			edge_labels = self.getEdgeTransitions(),
+			label_pos = 0.5,
+			font_size = 12,
+			font_color = "blue",
+			alpha = 0.8,
 		)
-		plt.axis('off')
 
-		if path != "":
-			plt.savefig(path)
-		plt.show()
+		# plt.show()
+		plt.savefig(path)
