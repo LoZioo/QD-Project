@@ -32,7 +32,7 @@ class DirectGraphPrinter:
 
 	# Print an image of the graph using the functions of the library NetworkX by passing
 	# a path through the parameter "path" the image will be saved in the desired location.
-	def save(self, path: str, figsize_x: int = 15, figsize_y: int = 10) -> None:
+	def saveGraph(self, path: str, figsize_x: int = 15, figsize_y: int = 10) -> None:
 		networkx_positions = self.getPositionsForNetworkX()
 		graph_to_print = nx.DiGraph()
 

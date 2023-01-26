@@ -20,7 +20,7 @@ def test_DirectGraphPrinter() -> None:
 	IMG_PATH = "img/saved/graph.jpg"
 
 	# Save the generated image.
-	printer.save(IMG_PATH)
+	printer.saveGraph(IMG_PATH)
 
 	# MSE comparison.
 	saved_image = cv2.imread(IMG_PATH)
