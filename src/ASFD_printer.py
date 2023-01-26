@@ -24,47 +24,30 @@ class ASFDPrinter(DirectGraphPrinter):
 
 	# Save an image of the ASFD using the functions of the library NetworkX by passing
 	# a path through the parameter "path" the image will be saved in the desired location.
-	def saveASFD(self, path: str, figsize_x: int = 15, figsize_y: int = 10) -> None:
+	def saveASFD(self, path: str, save: bool = True, print: bool = False) -> None:
+		# Initialize self.graph_to_print, but do not save the results.
+		self.saveGraph(path, False)
 		networkx_positions = self.getNodePositions()
-		graph_to_print = nx.DiGraph()
-
-		graph_to_print.add_nodes_from(self.parser.getLabelArray())
-		graph_to_print.add_edges_from(self.getLabeledAdjList())
-
-		plt.figure(figsize = (figsize_x, figsize_y))
-		plt.axis("off")
-
-		# Draw nodes.
-		nx.draw_networkx(
-			graph_to_print,
-			networkx_positions,
-			width = 2,
-			linewidths = 2,
-			node_size = 1000,
-			node_color = "white",
-			font_size = 14,
-			edgecolors = "black"
-		)
 
 		# The entry_state is printed in red.
 		nx.draw_networkx_nodes(
-			graph_to_print,
+			self.graph_to_print,
 			networkx_positions,
 			node_size = 1000,
 			nodelist = { self.parser.getEntryState() },
 			node_color = "tab:red",
-			alpha = 0.2,
+			alpha = 0.5,
 			edgecolors = "black"
 		)
 
 		# The final_states are printed in green.
 		nx.draw_networkx_nodes(
-			graph_to_print,
+			self.graph_to_print,
 			networkx_positions,
 			node_size = 1000,
 			nodelist = self.parser.getFinalStates(),
 			node_color = "tab:green",
-			alpha = 0.2,
+			alpha = 0.5,
 			edgecolors = "black"
 		)
 
@@ -75,14 +58,16 @@ class ASFDPrinter(DirectGraphPrinter):
 
 		# Draw transitions.
 		nx.draw_networkx_edge_labels(
-			graph_to_print,
+			self.graph_to_print,
 			networkx_transitions,
 			edge_labels = self.getEdgeTransitions(),
 			label_pos = 0.5,
 			font_size = 12,
-			font_color = "blue",
-			alpha = 0.8,
+			font_color = "blue"
 		)
 
-		# plt.show()
-		plt.savefig(path)
+		if print:
+			plt.show()
+
+		if save:
+			plt.savefig(path)
