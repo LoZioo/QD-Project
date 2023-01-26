@@ -12,7 +12,7 @@ def test_DirectGraphPrinter() -> None:
 	expected_adj_list = [("q1", "q2"), ("q2", "q3"), ("q3", "q4"), ("q1", "q4"), ("q4", "q4"), ("q2", "q2"), ("q3", "q3")]
 	assert expected_adj_list == printer.getLabeledAdjList()
 
-	# getPositionsForNetworkX.
+	# getNodePositions.
 	expected_positions = {"q1": (321, 147), "q2": (464, 63), "q3": (605, 139), "q4": (465, 220)}
 	assert expected_positions == printer.getNodePositions()
 
