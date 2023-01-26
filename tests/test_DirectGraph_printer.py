@@ -16,7 +16,7 @@ def test_DirectGraphPrinter() -> None:
 	expected_positions = {"q1": (321, 147), "q2": (464, 63), "q3": (605, 139), "q4": (465, 220)}
 	assert expected_positions == printer.getNodePositions()
 
-	# save.
+	# saveGraph.
 	IMG_PATH = "img/saved/graph.jpg"
 
 	# Save the generated image.
