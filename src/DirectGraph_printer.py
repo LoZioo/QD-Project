@@ -1,5 +1,6 @@
 from src.parser import Parser
 
+import os
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -60,5 +61,19 @@ class DirectGraphPrinter:
 		)
 
 		# plt.show()
+
+		# Folder where the file has to be saved.
+		last_slash = path.rfind("/")
+
+		if last_slash == -1:
+			last_slash = path.rfind("\\")
+
+		folder = path[:last_slash]
+
+		# Create the folder if it doesn't exist.
+		if not os.path.exists(folder):
+			os.mkdir(folder)
+
+		# Save the file.
 		if save:
 			plt.savefig(path)
