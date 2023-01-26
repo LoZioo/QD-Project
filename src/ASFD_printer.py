@@ -24,7 +24,9 @@ class ASFDPrinter(DirectGraphPrinter):
 
 	# Save an image of the ASFD using the functions of the library NetworkX by passing
 	# a path through the parameter "path" the image will be saved in the desired location.
-	def saveASFD(self, path: str, save: bool = True, print: bool = False) -> None:
+	def saveASFD(self, path: str, save: bool = True) -> None:
+		assert path != ""
+
 		# Initialize self.graph_to_print, but do not save the results.
 		self.saveGraph(path, False)
 		networkx_positions = self.getNodePositions()
@@ -66,8 +68,6 @@ class ASFDPrinter(DirectGraphPrinter):
 			font_color = "blue"
 		)
 
-		if print:
-			plt.show()
-
+		# plt.show()
 		if save:
 			plt.savefig(path)

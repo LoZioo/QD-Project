@@ -36,7 +36,9 @@ class DirectGraphPrinter:
 
 	# Save an image of the graph using the functions of the library NetworkX by passing
 	# a path through the parameter "path" the image will be saved in the desired location.
-	def saveGraph(self, path: str, save: bool = True, print: bool = False) -> None:
+	def saveGraph(self, path: str, save: bool = True) -> None:
+		assert path != ""
+
 		networkx_positions = self.getNodePositions()
 
 		self.graph_to_print.add_nodes_from(self.parser.getLabelArray())
@@ -57,8 +59,6 @@ class DirectGraphPrinter:
 			edgecolors = "black"
 		)
 
-		if print:
-			plt.show()
-
+		# plt.show()
 		if save:
 			plt.savefig(path)
