@@ -70,14 +70,14 @@ class ASFDPrinter(DirectGraphPrinter):
 		)
 
 		# Shift positions for a better visualisation of edge labels.
-		edge_labels_pos: dict[str, tuple[int, int]] = {}
-		for position in networkx_positions:
-			edge_labels_pos[position] = (networkx_positions[position][0], networkx_positions[position][1] + 8)
+		networkx_transitions: dict[str, tuple[int, int]] = {}
+		for position in networkx_positions.items():
+			networkx_transitions[position[0]] = (networkx_positions[position[0]][0], networkx_positions[position[0]][1] + 8)
 
 		# Draw transitions.
 		nx.draw_networkx_edge_labels(
 			graph_to_print,
-			edge_labels_pos,
+			networkx_transitions,
 			edge_labels = self.getEdgeTransitions(),
 			label_pos = 0.5,
 			font_size = 12,
