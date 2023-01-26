@@ -43,15 +43,16 @@ class DirectGraphPrinter:
 		plt.figure(figsize = (figsize_x, figsize_y))
 		plt.axis("off")
 
+		# Draw nodes.
 		nx.draw_networkx(
 			graph_to_print,
 			networkx_positions,
-			node_size = 1000,
-			font_size = 14,
-			node_color = "white",
-			edgecolors = "black",
+			width = 2,
 			linewidths = 2,
-			width = 2
+			node_size = 1000,
+			node_color = "white",
+			font_size = 14,
+			edgecolors = "black"
 		)
 
 		# plt.show()

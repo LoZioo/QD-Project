@@ -42,9 +42,8 @@ class ASFDPrinter(DirectGraphPrinter):
 			linewidths = 2,
 			node_size = 1000,
 			node_color = "white",
-			font_size = 16,
-			edgecolors = "black",
-			labels = { node: node for node in self.parser.getLabelArray() }
+			font_size = 14,
+			edgecolors = "black"
 		)
 
 		# The entry_state is printed in red.
