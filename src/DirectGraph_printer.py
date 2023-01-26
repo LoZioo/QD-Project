@@ -21,7 +21,7 @@ class DirectGraphPrinter:
 		return adj_list_labeled
 
 	# Convert the getPositions from parser class to a NetworkX compatible format.
-	def getPositionsForNetworkX(self) -> dict[str, tuple[int, int]]:
+	def getNodePositions(self) -> dict[str, tuple[int, int]]:
 		nodes = self.parser.getPositions()
 		positions: dict[str, tuple[int, int]] = {}
 
