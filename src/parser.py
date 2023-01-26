@@ -16,11 +16,6 @@ class Edge_t(TypedDict):
 	target_id:	int
 	upText:			str
 
-class Positions_t(TypedDict):
-	label:	str
-	x:			int
-	y:			int
-
 class Parser:
 	# Constructor.
 	def __init__(self, pathname: str) -> None:
@@ -72,21 +67,6 @@ class Parser:
 		return edges
 
 	# Derivated methods.
-	def getPositions(self) -> list[Positions_t]:
-		nodes = self.getInfoFromNodes()
-		positions: list[Positions_t] = []
-
-		for node in nodes:
-			position: Positions_t = {
-				"label":	node["label"].strip("_"),
-				"x":			node["posX"],
-				"y":			node["posY"],
-			}
-
-			positions.append(position)
-
-		return positions
-
 	def getSigma(self) -> str:
 		edges = self.getInfoFromEdges()
 		sigma: str = ""
