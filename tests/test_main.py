@@ -1,5 +1,7 @@
-from src.main import sum
+from src.main import main
 
-def test_sum() -> None:
-	assert sum(3,4) == 7
-	assert sum(0,0) == 0
+def test_main() -> None:
+	print("\n")
+	print("---------------| Begin main |---------------")
+	main()
+	print("---------------|  End main  |---------------")

@@ -76,6 +76,12 @@ class Parser:
 
 		return sigma
 
+	def getSigmaNormalized(self) -> list[str]:
+		sigma = list(set(self.getSigma()))
+		sigma.sort()
+
+		return sigma
+
 	def getEntryState(self) -> str:
 		nodes = self.getInfoFromNodes()
 
