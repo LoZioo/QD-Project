@@ -1,4 +1,4 @@
-from src.parser import Parser, Node_t, Edge_t, Positions_t
+from src.parser import Parser, Node_t, Edge_t
 from include.data_test_ASFD import ASFD_init, DirectGraph_init
 
 import numpy as np
@@ -29,20 +29,6 @@ def test_Parser() -> None:
 
 	assert edges == parser.getInfoFromEdges()
 
-	# getPositions.
-	positions_expected: list[Positions_t] = []
-
-	for node in nodes:
-		position: Positions_t = {
-			"label":	node["label"].strip("_"),
-			"x":			node["posX"],
-			"y":			node["posY"],
-		}
-
-		positions_expected.append(position)
-	
-	assert positions_expected == parser.getPositions()
-
 	# getSigma.
 	assert ASFD_init.sigma == parser.getSigma()
 
@@ -55,6 +41,14 @@ def test_Parser() -> None:
 
 	# getAdjMatr.
 	assert np.array_equal(DirectGraph_init.adj_matr, parser.getAdjMatr())
+
+	# getAdjList.
+	adj_list_expected: list[tuple[int, int]] = []
+
+	for edge in edges:
+		adj_list_expected.append((edge["source_id"], edge["target_id"]))
+
+	assert np.array_equal(adj_list_expected, parser.getAdjList())
 
 	# getDelta.
 	assert np.array_equal(ASFD_init.delta, parser.getDelta())

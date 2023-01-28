@@ -1,6 +1,6 @@
 from src.graph import DirectGraph, DirectGraph_init_t
 
-from typing import NamedTuple, Any
+from typing import NamedTuple
 
 import numpy as np
 import numpy.typing as npt
@@ -19,15 +19,6 @@ class ASFD_init_t(NamedTuple):
 	final_states:	set[str]									# Max len: |Q|.
 
 class ASFD(DirectGraph):
-	sigma:				npt.NDArray[np.string_]
-
-	# Merge between ASFD_init_t.delta and DirectGraph.adj_matr; dimensions |Q| x |Q|.
-	# Single element: S subseteq of Sigma s.t. |S| <= |Sigma|.
-	delta_matr:		npt.NDArray[Any]
-
-	entry_state:	int
-	final_states:	set[int]
-
 	def __init__(self, ASFD_init: ASFD_init_t, DirectGraph_init: DirectGraph_init_t) -> None:
 		# Q: init DirectGraph superclass.
 		super().__init__(DirectGraph_init)
@@ -55,7 +46,8 @@ class ASFD(DirectGraph):
 		assert ASFD_init.delta.shape == (len(DirectGraph_init.label_arr), len(self.sigma))
 		assert ((q in DirectGraph_init.label_arr for q in row) for row in ASFD_init.delta)
 
-		# delta: merging between delta and adj_matr.
+		# Merge between ASFD_init_t.delta and DirectGraph.adj_matr; dimensions |Q| x |Q|.
+		# Single element: S subseteq of Sigma s.t. |S| <= |Sigma|.
 		n = len(DirectGraph_init.adj_matr)			# |Q|.
 		self.delta_matr = np.full((n, n), {})
 
