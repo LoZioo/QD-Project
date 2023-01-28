@@ -32,6 +32,12 @@ def test_Parser() -> None:
 	# getSigma.
 	assert ASFD_init.sigma == parser.getSigma()
 
+	# getSigmaNormalized.
+	sigma_normalized = list(set(ASFD_init.sigma))
+	sigma_normalized.sort()
+
+	assert sigma_normalized == parser.getSigmaNormalized()
+
 	# getEntryState and getFinalStates.
 	assert ASFD_init.entry_state == parser.getEntryState()
 	assert ASFD_init.final_states == parser.getFinalStates()
